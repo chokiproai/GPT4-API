@@ -1,0 +1,12 @@
+services:
+- type: web
+  name: bingo
+  env: docker
+  autoDeploy: true
+  healthCheckPath: /api/healthz
+  plan: free
+  envVars:
+  - key: BING_HEADER
+    value:
+  - key: PORT
+    value: 10000
