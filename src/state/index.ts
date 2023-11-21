@@ -11,17 +11,17 @@ import storage from './storage'
 import { getCookie } from '@/lib/utils'
 
 export const GreetMessages = [
-  'This is your OpenAI Reverse Proxy URL: https://ngoctuanai-gpt4-api.hf.space',
-  'This is your OpenAI Reverse Proxy URL: https://ngoctuanai-gpt4-api.hf.space',
-  'This is your OpenAI Reverse Proxy URL: https://ngoctuanai-gpt4-api.hf.space',
-  'This is your OpenAI Reverse Proxy URL: https://ngoctuanai-gpt4-api.hf.space',
-  'This is your OpenAI Reverse Proxy URL: https://ngoctuanai-gpt4-api.hf.space',
-  'This is your OpenAI Reverse Proxy URL: https://ngoctuanai-gpt4-api.hf.space',
-  'This is your OpenAI Reverse Proxy URL: https://ngoctuanai-gpt4-api.hf.space',
-  'This is your OpenAI Reverse Proxy URL: https://ngoctuanai-gpt4-api.hf.space',
-  'This is your OpenAI Reverse Proxy URL: https://ngoctuanai-gpt4-api.hf.space',
-  'This is your OpenAI Reverse Proxy URL: https://ngoctuanai-gpt4-api.hf.space',
-  'This is your OpenAI Reverse Proxy URL: https://ngoctuanai-gpt4-api.hf.space'
+  'This is your OpenAI Reverse Proxy URL: https://ngoctuanai-gpt4api.hf.space and key: free',
+  'This is your OpenAI Reverse Proxy URL: https://ngoctuanai-gpt4api.hf.space and key: free',
+  'This is your OpenAI Reverse Proxy URL: https://ngoctuanai-gpt4api.hf.space and key: free',
+  'This is your OpenAI Reverse Proxy URL: https://ngoctuanai-gpt4api.hf.space and key: free',
+  'This is your OpenAI Reverse Proxy URL: https://ngoctuanai-gpt4api.hf.space and key: free',
+  'This is your OpenAI Reverse Proxy URL: https://ngoctuanai-gpt4api.hf.space and key: free',
+  'This is your OpenAI Reverse Proxy URL: https://ngoctuanai-gpt4api.hf.space and key: free',
+  'This is your OpenAI Reverse Proxy URL: https://ngoctuanai-gpt4api.hf.space and key: free',
+  'This is your OpenAI Reverse Proxy URL: https://ngoctuanai-gpt4api.hf.space and key: free',
+  'This is your OpenAI Reverse Proxy URL: https://ngoctuanai-gpt4api.hf.space and key: free',
+  'This is your OpenAI Reverse Proxy URL: https://ngoctuanai-gpt4api.hf.space and key: free'
 ]
 
 export const PrompsTemplates = [
