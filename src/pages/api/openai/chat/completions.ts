@@ -34,7 +34,7 @@ function parseOpenAIMessage(request: APIRequest) {
     context,
     stream: request.stream,
     allowSearch: /gpt-?4/i.test(request.model),
-    model: /Creative|gpt-?4/i.test(request.model) ? 'Creative' : 'Balanced',
+    model: /gpt-?4/i.test(request.model) ? 'Creative' : 'Balanced',
   };
 }
 
