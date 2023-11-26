@@ -19,13 +19,18 @@ import { SVG } from './ui/svg'
 export function UserMenu() {
   const [host, setHost] = useState('')
   const { isCopied, copyToClipboard } = useCopyToClipboard({ timeout: 2000 })
+  const [installPrompt, setInstallPrompt] = useState<Event & { prompt: () => void }>()
   useEffect(() => {
     setHost(location.host)
+    window.addEventListener('beforeinstallprompt', (event) => {
+      event.preventDefault()
+      setInstallPrompt(event as Event & { prompt: () => void })
+    })  
   }, [])
 
   useEffect(() => {
     if (isCopied) {
-      toast.success('复制成功')
+      toast.success('Copy')
     }
   }, [isCopied])
   return (
@@ -104,6 +109,10 @@ export function UserMenu() {
           <DropdownMenuItem className="flex-col items-start">
             <div className="font-medium">Version {pkg.version}</div>
             </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          {installPrompt && <DropdownMenuItem className="flex-col items-start">
+            <div className="font-medium" onClick={() => installPrompt.prompt?.()}>Install Bing</div>
+          </DropdownMenuItem>}
           <DropdownMenuSeparator />
           <DropdownMenuItem className="flex-col items-start">
             <div className="font-medium">API</div>
