@@ -103,7 +103,7 @@ export function UserMenu() {
           <DropdownMenuSeparator />
           <DropdownMenuItem className="flex-col items-start">
             <div className="font-medium">Version {pkg.version}</div>
-          </DropdownMenuItem>
+            </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem className="flex-col items-start">
             <div className="font-medium">API</div>

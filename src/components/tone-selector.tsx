@@ -8,9 +8,9 @@ type ToneItem = {
 }
 
 const ToneList: ToneItem[] = [
-  { name: 'ㅤ', type: BingConversationStyle.Creative },
-  { name: 'ㅤ', type: BingConversationStyle.Balanced },
-  { name: 'ㅤ', type: BingConversationStyle.Precise }
+  { name: '', type: BingConversationStyle.Creative },
+  { name: '', type: BingConversationStyle.Balanced },
+  { name: '', type: BingConversationStyle.Precise }
 ]
 
 interface ToneSelectorProps {

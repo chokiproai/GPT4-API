@@ -19,10 +19,10 @@ import { createChunkDecoder } from '@/lib/utils'
 import { randomUUID } from 'crypto'
 import md5 from 'md5'
 
-type Params = SendMessageParams<{ bingConversationStyle: BingConversationStyle, retryCount?: number }>
+type Params = SendMessageParams<{ bingConversationStyle: BingConversationStyle, allowSearch?: boolean, retryCount?: number }>
 
-const getOptionSets = (conversationStyle: BingConversationStyle) => {
-  return {
+const getOptionSets = (conversationStyle: BingConversationStyle, allowSeach = true) => {
+  const results = {
     [BingConversationStyle.Creative]: [
       'nlu_direct_response_filter',
       'deepleo',
@@ -129,6 +129,10 @@ const getOptionSets = (conversationStyle: BingConversationStyle) => {
       'nojbfedge',
     ]
   }[conversationStyle]
+  if (allowSeach === false) {
+    results.push('nosearchall')
+  }
+  return results
 }
 
 export class BingWebBot {
@@ -183,7 +187,7 @@ export class BingWebBot {
     }
 
     const argument = {
-      optionsSets: getOptionSets(useBaseSets ? BingConversationStyle.Base : conversation.conversationStyle),
+      optionsSets: getOptionSets(useBaseSets ? BingConversationStyle.Base : conversation.conversationStyle, conversation.allowSearch),
       sliceIds: [
         'gbaa',
         'gba',
@@ -212,16 +216,26 @@ export class BingWebBot {
       allowedMessageTypes: [
         'ActionRequest',
         'Chat',
+        'ConfirmationCard',
         'Context',
         'InternalSearchQuery',
         'InternalSearchResult',
         'Disengaged',
         'InternalLoaderMessage',
+        'InvokeAction',
         'Progress',
         'RenderCardRequest',
+        'RenderContentRequest',
+        // 'AdsQuery',
         'SemanticSerp',
         'GenerateContentQuery',
-        'SearchQuery',
+        'SearchQuery'
+      ],
+      conversationHistoryOptionsSets: [
+        'autosave',
+        'savemem',
+        'uprofupd',
+        'uprofgen'
       ],
       previousMessages: conversation.context?.length ? [{
         author: 'user',
@@ -236,6 +250,7 @@ export class BingWebBot {
       conversationId: conversation.conversationId,
       conversationSignature: conversation.conversationSignature,
       participant: { id: conversation.clientId },
+      plugins: [],
       scenario: 'SERP',
       tone: conversation.conversationStyle
     }
@@ -313,7 +328,7 @@ export class BingWebBot {
   async sendMessage(params: Params) {
     try {
       await this.createContext(params.options.bingConversationStyle)
-      Object.assign(this.conversationContext!, { prompt: params.prompt, imageUrl: params.imageUrl, context: params.context })
+      Object.assign(this.conversationContext!, { allowSearch: params.options.allowSearch, prompt: params.prompt, imageUrl: params.imageUrl, context: params.context })
       return this.sydneyProxy(params)
     } catch (error) {
       const formatError = error instanceof ChatError ? error : new ChatError('Catch Error', ErrorCode.UNKOWN_ERROR)
@@ -337,21 +352,6 @@ export class BingWebBot {
       signal: abortController.signal,
       body: JSON.stringify(this.conversationContext!)
     }).catch(e => {
-      if (String(e) === 'timeout') {
-        if (params.options.retryCount??0 > 5) {
-          conversation.invocationId--
-          params.onEvent({
-            type: 'ERROR',
-            error: new ChatError(
-              'Timeout',
-              ErrorCode.BING_TRY_LATER,
-            ),
-          })
-        } else {
-          params.options.retryCount = (params.options.retryCount ?? 0) + 1
-          this.sydneyProxy(params)
-        }
-      }
       console.log('Fetch Error: ', e)
       params.onEvent({
         type: 'ERROR',
@@ -388,12 +388,28 @@ export class BingWebBot {
     })
 
     const textDecoder = createChunkDecoder()
-    for await (const chunk of streamAsyncIterable(response.body!)) {
-      const t = setTimeout(() => abortController.abort('timeout'), 6000)
-      this.parseEvents(params, websocketUtils.unpackMessage(textDecoder(chunk)))
-      clearTimeout(t)
+    let t
+    const timeout = () => {
+      if (params.options.retryCount??0 > 5) {
+        conversation.invocationId--
+        params.onEvent({
+          type: 'ERROR',
+          error: new ChatError(
+            'Timeout',
+            ErrorCode.BING_TRY_LATER,
+          ),
+        })
+      } else {
+        params.options.retryCount = (params.options.retryCount ?? 0) + 1
+        this.sydneyProxy(params)
+      }
     }
-    console.log('done')
+    for await (const chunk of streamAsyncIterable(response.body!)) {
+      clearTimeout(t)
+      t = setTimeout(timeout, 6000)
+      this.parseEvents(params, websocketUtils.unpackMessage(textDecoder(chunk)))
+    }
+    clearTimeout(t)
   }
 
   async sendWs() {

@@ -1,6 +1,6 @@
 {
   "name": "bingo",
-  "version": "1.2.0",
+  "version": "1.2.5",
   "private": true,
   "main": "./cloudflare/cli.js",
   "scripts": {
