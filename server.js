@@ -4,7 +4,7 @@ const next = require('next')
 
 const dev = process.env.NODE_ENV !== 'production'
 const hostname = '0.0.0.0'
-const { PORT = 3000 } = process.env
+const { PORT = 7680 } = process.env
 // when using middleware `hostname` and `port` must be provided below
 const app = next({ dev, hostname, port: PORT })
 const handle = app.getRequestHandler()
