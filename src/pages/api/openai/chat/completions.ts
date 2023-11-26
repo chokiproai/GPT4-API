@@ -33,7 +33,7 @@ function parseOpenAIMessage(request: APIRequest) {
     prompt,
     context,
     stream: request.stream,
-    model: /gpt\-?4/i.test(request.model) ? 'Creative',
+    model: /gpt\-?4/i.test(request.model) ? 'Creative' : 'Balanced',
   };
 }
 
