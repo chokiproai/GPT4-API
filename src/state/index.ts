@@ -11,18 +11,13 @@ import storage from './storage'
 import { getCookie } from '@/lib/utils'
 
 export const GreetMessages = [
-  'This is your OpenAI Reverse Proxy URL: https://ngoctuanai-gpt4api.hf.space and key: free',
-  'This is your OpenAI Reverse Proxy URL: https://ngoctuanai-gpt4api.hf.space and key: free',
-  'This is your OpenAI Reverse Proxy URL: https://ngoctuanai-gpt4api.hf.space and key: free',
-  'This is your OpenAI Reverse Proxy URL: https://ngoctuanai-gpt4api.hf.space and key: free',
-  'This is your OpenAI Reverse Proxy URL: https://ngoctuanai-gpt4api.hf.space and key: free',
-  'This is your OpenAI Reverse Proxy URL: https://ngoctuanai-gpt4api.hf.space and key: free',
-  'This is your OpenAI Reverse Proxy URL: https://ngoctuanai-gpt4api.hf.space and key: free',
-  'This is your OpenAI Reverse Proxy URL: https://ngoctuanai-gpt4api.hf.space and key: free',
-  'This is your OpenAI Reverse Proxy URL: https://ngoctuanai-gpt4api.hf.space and key: free',
-  'This is your OpenAI Reverse Proxy URL: https://ngoctuanai-gpt4api.hf.space and key: free',
-  'This is your OpenAI Reverse Proxy URL: https://ngoctuanai-gpt4api.hf.space and key: free'
-]
+  `This is your OpenAI Reverse Proxy URL: 
+   <div className="font-medium">API</div>
+   <div onClick={() => copyToClipboard(host)} className="flex gap-1 text-xs text-zinc-500 cursor-pointer">
+      {host} <IconCopy />
+   </div> and key: free`,
+  // Repeat the same structure for other messages
+];
 
 export const PrompsTemplates = [
   {
