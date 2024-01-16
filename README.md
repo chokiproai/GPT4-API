@@ -12,6 +12,8 @@ This api need your cookie to generate conversation. After deployment login to th
 
 ![BING_COOKIE](https://github-production-user-asset-6210df.s3.amazonaws.com/128912789/283979541-9ddecd5c-4fd4-41e8-b699-dbb185242757.png)
 
+#### Or use: https://ngoctuanai-getbingcookies.hf.space
+
 ## API Reference
 
 Contributions are always welcome!
