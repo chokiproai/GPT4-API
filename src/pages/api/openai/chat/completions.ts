@@ -33,8 +33,8 @@ function parseOpenAIMessage(request: APIRequest) {
     prompt,
     context,
     stream: request.stream,
-    allowSearch: !/Creative|Balanced|Precise/i.test(request.model),
-    model: /Creative|gpt-?4/i.test(request.model) ? 'Creative' : request.model,
+    allowSearch: !/gpt-?4/i.test(request.model),
+    model: /gpt-?4/i.test(request.model) ? 'Creative' : request.model,
   };
 }
 
