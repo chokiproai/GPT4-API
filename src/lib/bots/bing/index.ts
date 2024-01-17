@@ -21,7 +21,7 @@ import md5 from 'md5'
 
 type Params = SendMessageParams<{ bingConversationStyle: BingConversationStyle, allowSearch?: boolean, retryCount?: number }>
 
-const getOptionSets = (conversationStyle: BingConversationStyle, allowSeach = true) => {
+const getOptionSets = (conversationStyle: BingConversationStyle, allowSeach = false) => {
   const results = {
     [BingConversationStyle.Creative]: [
       'nlu_direct_response_filter',
