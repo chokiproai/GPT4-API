@@ -33,7 +33,8 @@ function parseOpenAIMessage(request: APIRequest) {
     prompt,
     context,
     stream: request.stream,
-    model: /creative-offline/i.test(request.model) ? 'Creative' : request.model,
+    allowSearch: !/Creative|Balanced|Precise/i.test(request.model),
+    model: /Creative|gpt-?4/i.test(request.model) ? 'Creative' : request.model,
   };
 }
 
@@ -71,7 +72,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   req.socket.once('close', () => {
     abortController.abort()
   })
-  const { prompt, stream, model, context } = parseOpenAIMessage(req.body);
+  const { prompt, stream, model, allowSearch, context } = parseOpenAIMessage(req.body);
   let lastLength = 0
   let lastText = ''
   try {
@@ -91,6 +92,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       prompt,
       context,
       options: {
+        allowSearch,
         bingConversationStyle: Object.values(BingConversationStyle)
           .includes(toneType) ? toneType : BingConversationStyle.Creative,
       },
