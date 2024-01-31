@@ -1,3 +1,7 @@
+## This project has been discontinued
+
+> Let's move on to the project [AI-Copilot](https://github.com/chokiproai/AI-Copilot) and [AI-Copilot-EN](https://github.com/chokiproai/AI-Copilot-EN)
+
 ![Bing Chat API](https://user-images.githubusercontent.com/51857187/221339911-75f3e232-1c7b-4877-b3fe-8a1b77c5c744.jpg)
 
 ## [Deployed on Hugging Face](https://huggingface.co/login?next=%2Fspaces%2Fngoctuanai%2Fgpt4api%3Fduplicate%3Dtrue)
